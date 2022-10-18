@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello PinsController!{% endblock %}
+
+{% block body %}
+<style>
+    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+</style>
+
+<div class="example-wrapper">
+    <h1>Page d'accueil de tous les pins</h1>
+    <p> Vous avez {{ pluralize(pins|length, 'Pin') }}. </p>
+    {% for pin in pins %}
+        <article>
+            <h2>{{ pin.title }}</h2>
+            <p>{{ pin.description }}</p>
+            <p> lien vers les détails : <a href="{{ path('app_pins_details', {'id': pin.id}) }}">{{ pin.title }}</a></p>
+        
+        </article>
+    {% else  %}
+        <p> Désolé, pas encore de pins, n'hésitez pas à en créer un. </p>
+    
+    {% endfor %}
+    {# <a href="/pins/create">create pin</a>  #}
+    <a href="{{ path('app_pins_create') }}">create pin</a> 
+</div>
+
+{% endblock %}

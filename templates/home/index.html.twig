@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello World!{% endblock %}
+
+{% block body %}
+
+
+<div>
+    <h1 class="text-center">Hello from Avignon</h1>
+    <p>
+        Il est actuellement {{ 'now'|date('h:i A', 'Europe/Paris') }}, heure de Paris.
+    </p>
+    <a href="{{ path('app_pins') }}">Allez sur la page des pins</a> 
+    
+</div>
+{% endblock %}

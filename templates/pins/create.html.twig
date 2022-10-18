@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Create Pins{% endblock %}
+
+{% block body %}
+
+
+<div class="example-wrapper">
+    <h1 class="text-center">Create Page</h1>
+
+
+    {{ form_start(monFormulaire) }}
+        {{ form_widget(monFormulaire) }}
+        <input type="submit" value="Create Pin">
+    {{ form_end(monFormulaire) }}
+
+
+
+
+</div>
+
+{% endblock %}
