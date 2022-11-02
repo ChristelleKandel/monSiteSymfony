@@ -70,10 +70,13 @@ class PinsController extends AbstractController
     }
 
     #[Route('/pins/{id}/delete', name: 'app_pins_delete', priority:-1)]
-    public function delete(Pin $pin, EntityManagerInterface $em): Response
+    public function delete(Pin $pin, EntityManagerInterface $em, Request $request): Response
     {
-        $em->remove($pin);
-        $em->flush();       
+        $token_valide = $request->request->get('csrf_token');
+        if ($this->isCsrfTokenValid('pin_deletion_'. $pin->getId(), $token_valide )){
+            $em->remove($pin);
+            $em->flush();       
+        }
         return $this-> redirectToRoute('app_pins');
     }
 
