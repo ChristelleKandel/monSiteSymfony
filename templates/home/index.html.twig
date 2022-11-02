@@ -1,16 +1,19 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello World!{% endblock %}
+{% block title %}CKweb Symfony{% endblock %}
 
 {% block body %}
 
 
-<div>
-    <h1 class="text-center">Hello from Avignon</h1>
+<div class="text-center">
+    <h1 class="m-5">Bonjour</h1>
+    <p>
+        Ceci est un exemple de projet développé avec Symfony <br>
+        Il permet d'enregistrer des pins à la façon de Pinterest. <br>
+        <a href="{{ path('app_pins') }}">Aller sur la page des pins</a> <br> <br>
+    </p>
     <p>
         Il est actuellement {{ 'now'|date('h:i A', 'Europe/Paris') }}, heure de Paris.
     </p>
-    <a href="{{ path('app_pins') }}">Aller sur la page des pins</a> 
-    
 </div>
 {% endblock %}

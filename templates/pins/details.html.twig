@@ -9,13 +9,14 @@
 </style>
 
 <div class="example-wrapper">
-    <h1>Page d'affichage du pin 1 </h1>
+    <h1>Page d'affichage du pin sélectionné </h1>
     
 
         <article>
             <h2>{{ pin.title }}</h2>
             <p>{{ pin.description }}</p>
         </article>
+<a href="{{ path('app_pins_edit', {'id': pin.id}) }}">Modifier ce pin</a>       <br>
 <a href="{{ path('app_pins') }}">Retour à la liste des pins</a>
 </div>
 

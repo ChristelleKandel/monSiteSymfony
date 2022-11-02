@@ -5,13 +5,18 @@
 {% block body %}
 
 
-<div>
-    <h1 class="text-center">Nous contacter</h1>
+<div class="text-center">
+    <h1>Nous contacter</h1>
     <img src="{{ asset('/images/picto2.jpg') }}" alt="pictogramme">
     <p>
-        Contact <span class="text-danger">&hearts;</span>
+        Bienvenue sur ma page de Contact <span class="text-danger">&hearts;</span> <br>
+        Je suis Christelle Kandel, developpeuse web <br>
+        et je peux faire vos projets sur Symfony et Drupal.<br>
+        <a href="https://ckweb.fr/" target="_blank">Voir le site web de ckweb.fr</a>
     </p>
-    <a href="{{ path('app_home') }}">Retour accueil</a> 
+    <p>
+        <a href="{{ path('app_home') }}">Retour accueil</a> 
+    </p>
     
 </div>
 {% endblock %}

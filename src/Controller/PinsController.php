@@ -30,24 +30,40 @@ class PinsController extends AbstractController
         return $this->render('pins/details.html.twig', compact('pin'));
     }
 
+    #[Route('/pins/{id}/edit', name: 'app_pins_edit', priority:-1)]
+    public function edit(Pin $pin, Request $request, EntityManagerInterface $em): Response
+    {
+        $form = $this->createFormBuilder($pin)
+        ->add('title', null, ['attr'=> ['autofocus'=>true]])
+        ->add('description', TextareaType::class, ['attr'=> ['rows'=>5, 'cols'=>50]])
+        ->getForm()
+        ;
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) { 
+            $em->flush();
+            return $this-> redirectToRoute('app_pins');
+        }
+        return $this->render('pins/edit.html.twig', [
+            'pin' => $pin,
+            'monFormulaire' => $form->createView(),
+        ]);
+    }
+
     #[Route('/pins/create', name: 'app_pins_create')]
     public function create(Request $request, EntityManagerInterface $em): Response
     {
         $pin = new Pin;
         $form = $this->createFormBuilder($pin)
         ->add('title', null, ['attr'=> ['autofocus'=>true]])
-        ->add('description', TextareaType::class, ['attr'=> ['rows'=>5, 'cols'=>100]])
+        ->add('description', TextareaType::class, ['attr'=> ['rows'=>5, 'cols'=>50]])
         ->getForm()
         ;
-
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) { 
             $em->persist($pin);
             $em->flush();
             return $this-> redirectToRoute('app_pins');
         }
-
-
         return $this->render('pins/create.html.twig', [
             'monFormulaire' => $form->createView(),
         ]);
