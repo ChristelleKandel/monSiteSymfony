@@ -1,9 +1,0 @@
-@import "~bootstrap";
-
-// Grâce au Scss je rajoute des classes de bootstrap
-.vich-image img{
-    @extend .mb-2;
-    @extend .rounded;
-    @extend .shadow;
-    @extend .img-thumbnail;
-}

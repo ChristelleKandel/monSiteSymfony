@@ -1,0 +1,47 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+@import "~bootstrap/scss/bootstrap";
+
+$primary-font: 'Montserrat';
+
+body {
+    background-color: lightgrey;
+    font-family: $primary-font, sans-serif;
+}
+
+h1{
+    color:white;
+    background-color: darkslategray;
+    padding: 15px;
+}
+
+.alert{
+    padding: 10px;
+    color: white;
+    text-align: center;
+    margin: 0;
+    border: none;
+    border-radius: 0;
+    &-success{
+        background-color: green;
+    }
+    
+    &-info{
+        background-color: red;
+    }
+}
+
+.vich-image img{
+    border-radius: 10px;
+    box-shadow: 0 .5rem 1rem rgba(0, 0, 0, 0.15);
+    border: rounded 1px 
+}
+
+// @import "~bootstrap";
+
+// Grâce au Scss je rajoute des classes de bootstrap
+// .vich-image img{
+//     @extend .mb-2;
+//     @extend .rounded;
+//     @extend .shadow;
+//     @extend .img-thumbnail;
+// }
