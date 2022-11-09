@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Pin;
+use App\Form\PinType;
 use App\Repository\PinRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -28,11 +29,12 @@ class PinsController extends AbstractController
     public function create(Request $request, EntityManagerInterface $em): Response
     {
         $pin = new Pin;
-        $form = $this->createFormBuilder($pin)
-        ->add('title', null, ['attr'=> ['autofocus'=>true]])
-        ->add('description', TextareaType::class, ['attr'=> ['rows'=>5, 'cols'=>50]])
-        ->getForm()
-        ;
+        $form = $this->createForm(PinType::class, $pin);
+        // $form = $this->createFormBuilder($pin)
+        // ->add('title', null, ['attr'=> ['autofocus'=>true]])
+        // ->add('description', TextareaType::class, ['attr'=> ['rows'=>5, 'cols'=>50]])
+        // ->getForm()
+        // ;
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) { 
             $em->persist($pin);
@@ -59,11 +61,12 @@ class PinsController extends AbstractController
     #[Route('/pins/{id}/edit', name: 'app_pins_edit', methods: ['GET', 'POST'])]
     public function edit(Pin $pin, Request $request, EntityManagerInterface $em): Response
     {
-        $form = $this->createFormBuilder($pin)
-        ->add('title', null, ['attr'=> ['autofocus'=>true]])
-        ->add('description', TextareaType::class, ['attr'=> ['rows'=>5, 'cols'=>50]])
-        ->getForm()
-        ;
+        $form = $this->createForm(PinType::class, $pin);
+        // $form = $this->createFormBuilder($pin)
+        // ->add('title', null, ['attr'=> ['autofocus'=>true]])
+        // ->add('description', TextareaType::class, ['attr'=> ['rows'=>5, 'cols'=>50]])
+        // ->getForm()
+        // ;
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) { 
             $em->flush();

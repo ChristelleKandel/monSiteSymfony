@@ -7,3 +7,9 @@ h1{
     background-color: darkslategray;
     padding: 15px;
 }
+
+.vich-image img{
+    border-radius: 10px;
+    box-shadow: 0 .5rem 1rem rgba(0, 0, 0, 0.15);
+    border: rounded 1px 
+}
