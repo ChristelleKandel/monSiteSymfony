@@ -3,16 +3,10 @@
 {% block title %} Edit {{ pin.title }} {% endblock %}
 
 {% block body %}
-
-
-<div class="example-wrapper">
-    <h1 class="text-center">Edition de {{ pin.title }}</h1>
-
-    {{ form_start(monFormulaire) }}
-        {{ form_widget(monFormulaire) }}
-        <input type="submit" value="Enregistrer la modification">
-    {{ form_end(monFormulaire) }}
-
-</div>
-
+    <div class="row">
+        <div class="col-md-6 mx-auto">
+            <h1 class="text-center">Edition de {{ pin.title }}</h1>
+            {{ include ("_partials/_formPins.html.twig", {submitButtonText: 'Enregistrer la modification'}) }}
+        </div>
+    </div>
 {% endblock %}

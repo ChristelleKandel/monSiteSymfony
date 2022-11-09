@@ -1,11 +1,12 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="#">Navbar</a>
+  <div class="container">
+    <a class="navbar-brand" href="#">Site Symfony</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+      <!-- ml auto, remplacé par ms-auto avec bootstrap5, pour mettre le menu à gauche en gardant le logo à droite -->
+      <ul class="navbar-nav mb-2 mb-lg-0 ms-auto">
         <li class="nav-item">
           <a class="nav-link active" aria-current="page" href="{{ path('app_home') }}">Home</a>
         </li>
@@ -19,18 +20,17 @@
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
             <li><a class="dropdown-item" href="{{ path('app_pins') }}">Voir tous les pins</a></li>
             <li><a class="dropdown-item" href="{{ path('app_pins_create') }}">Créer un pin</a></li>
-            <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="#">Something else here</a></li>
+            {# <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="#">Something else here</a></li> #}
           </ul>
         </li>
-        {# <li class="nav-item">
-          <a class="nav-link disabled">Disabled</a>
-        </li> #}
+        <li class="nav-item">
+          <a class="nav-link" href="#">Compte</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Log out</a>
+        </li>
       </ul>
-      <form class="d-flex">
-        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-        <button class="btn btn-outline-success" type="submit">Search</button>
-      </form>
     </div>
   </div>
 </nav>

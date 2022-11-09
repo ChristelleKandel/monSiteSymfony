@@ -5,6 +5,7 @@ namespace App\Entity;
 use DateTimeImmutable;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\PinRepository;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: PinRepository::class)]
 #[ORM\HasLifecycleCallbacks]
@@ -16,9 +17,12 @@ class Pin
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(message: 'le titre ne peut pas être vide')]
+    #[Assert\Length(min: 2, minMessage: 'Le titre doit avoir au moins {{ limit }} caractères',)]
     private ?string $title = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank]
     private ?string $description = null;
 
     #[ORM\Column (options: ['default'=>'CURRENT_TIMESTAMP'])]
