@@ -3,20 +3,28 @@
 {% block title %}PinsController!{% endblock %}
 
 {% block body %}
-
-    <h1>Page d'accueil de tous les pins</h1>
-    <p> Vous avez {{ pluralize(pins|length, 'Pin') }}. </p>
-    {% for pin in pins %}
-        <article>
-            <h2>{{ pin.title }}</h2>
-            <p>{{ pin.description }}</p>
-            <p> lien vers les détails : <a href="{{ path('app_pins_details', {'id': pin.id}) }}">{{ pin.title }}</a></p>
-        </article>
+    {% if pins|length >0 %}
+        <h1>Page d'accueil de tous les pins</h1>
+        <h3 class="text-center"> Vous avez {{ pluralize(pins|length, 'Pin') }}. </h3>
+        {% for row in pins|batch(3) %}
+            <div class="row mb-5">
+                {% for pin in row %}
+                    <div class="col-md-4">
+                        <article class=" pin bg-white rounded shadow">
+                            <div class="mw-100 overflow-hidden rounded-top">
+                                <a href="{{ path('app_pins_details', {'id': pin.id}) }}"><img class="w-100" src="{{ (pin.imageName ? vich_uploader_asset(pin) : asset('build/images/picto.jpg')) | imagine_filter('square_medium') }}" alt="{{ pin.title }}"  /></a>
+                            </div>
+                            <h2 class="h5 pt-3 px-3">{{ pin.title }}</h2>
+                            <p class="px-3">{{ pin.description|u.truncate(20, '...', false) }}</p>
+                            <p class="px-3"> Lire la suite : <a class="text-secondary text-decoration-none" href="{{ path('app_pins_details', {'id': pin.id}) }}">{{ pin.title }}</a></p>
+                            <p class="p-3 text-muted"><small>Posté par [Owner full name]</small></p>
+                        </article>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endfor %}
     {% else  %}
         <p> Désolé, pas encore de pins, n'hésitez pas à en créer un. </p>
-
-    {% endfor %}
-    {# <a href="/pins/create">create pin</a>  #}
-    <a href="{{ path('app_pins_create') }}">create pin</a> 
-
+        <a href="{{ path('app_pins_create') }}">create pin</a> 
+    {% endif %}
 {% endblock %}
