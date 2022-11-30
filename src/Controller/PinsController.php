@@ -13,6 +13,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 
@@ -27,6 +28,9 @@ class PinsController extends AbstractController
     }
 
     #[Route('/pins/create', name: 'app_pins_create')]
+    /**
+     * @Security("is_granted('ROLE_USER') && user.isVerified()", message="Vous devez être un utilisateur confirmé")
+     */
     public function create(Request $request, EntityManagerInterface $em, UserRepository $userRepo): Response
     {
         $pin = new Pin;
@@ -64,6 +68,9 @@ class PinsController extends AbstractController
     }
 
     #[Route('/pins/{id}/edit', name: 'app_pins_edit', methods: ['GET', 'POST'])]
+    /**
+     * @Security("is_granted('PIN_MANAGE', pin)")
+     */
     public function edit(Pin $pin, Request $request, EntityManagerInterface $em): Response
     {
         $form = $this->createForm(PinType::class, $pin);
@@ -85,8 +92,11 @@ class PinsController extends AbstractController
     }
 
     #[Route('/pins/{id}/delete', name: 'app_pins_delete', methods: ['GET', 'POST', 'DELETE'])]
+
     public function delete(Pin $pin, EntityManagerInterface $em, Request $request): Response
     {
+        $message = "Vous devez être l'auteur";
+        $this-> denyAccessUnlessGranted('PIN_MANAGE', $pin, $message);
         $token_valide = $request->request->get('csrf_token');
         if ($this->isCsrfTokenValid('pin_deletion_'. $pin->getId(), $token_valide )){
             $em->remove($pin);

@@ -12,10 +12,12 @@ class SecurityController extends AbstractController
     #[Route(path: '/login', name: 'app_login')]
     public function login(AuthenticationUtils $authenticationUtils): Response
     {
+        // Si je suis déjà connecté, je n'ai pas accès à la page de connection, je dois faire logout en premier
         // if ($this->getUser()) {
-        //     return $this->redirectToRoute('target_path');
+        //     $this->addFlash('info', 'Vous êtes déjà connecté(e)');
+        //     return $this->redirectToRoute('app_home');
         // }
-
+        // $this->denyAccessUnlessGranted('IS_ANONYMOUS');
         // get the login error if there is one
         $error = $authenticationUtils->getLastAuthenticationError();
         // last username entered by the user

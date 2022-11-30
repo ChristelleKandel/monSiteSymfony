@@ -9,7 +9,7 @@
                 <div class="mw-100 overflow-hidden rounded-top">
                     <img class="w-100 rounded-top" src="{{ (pin.imageName ? vich_uploader_asset(pin) : asset('build/images/picto.jpg')) | imagine_filter('square_medium') }}" alt="{{ pin.title }}"  />
                 </div>
-                <h1 class="h5 pt-3 px-3">{{ pin.title }}</h1>
+                <h1 class="h5 m-0 pt-3 px-3">{{ pin.title }}</h1>
                 <p class="p-3 text-muted">
                     <small>
                         Posté <time datetime="{{ pin.createdAt|date('Y-m-d H:i:s') }}">{{ pin.createdAt|ago }}</time>
@@ -19,8 +19,11 @@
                 </p>
                 <p class="px-3 text-break">{{ pin.description }}</p>
                 <div class="p-3">
-                    <a class="btn btn-light" href="{{ path('app_pins_edit', {'id': pin.id}) }}">Modifier</a>
-                    <a class="btn btn-light" href="#" onclick="event.preventDefault(); confirm('êtes-vous sûr de vouloir supprimer ce pin?') && document.getElementById('js-pin-delete-form').submit();">Supprimer </a>
+                    {# {%if(app.user==pin.user )%}  #}
+                    {% if is_granted('PIN_MANAGE', pin) %}
+                        <a class="btn btn-light" href="{{ path('app_pins_edit', {'id': pin.id}) }}">Modifier</a>
+                        <a class="btn btn-light" href="#" onclick="event.preventDefault(); confirm('êtes-vous sûr de vouloir supprimer ce pin?') && document.getElementById('js-pin-delete-form').submit();">Supprimer </a>
+                    {% endif %}
                     <a class="btn btn-light" href="{{ path('app_pins') }}">Retour à la liste</a>
                     <form id="js-pin-delete-form" action="{{ path('app_pins_delete', {'id': pin.id}) }}" method="post" style="display:none;">
                         <input type="hidden" name="csrf_token" value="{{ csrf_token('pin_deletion_' ~ pin.id) }}">

@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Admin index{% endblock %}
+
+{% block body %}
+
+
+<div class="text-center">
+    <h1>Tableau de bord de l'administrateur</h1>
+    <p>Tout le monde a accès à ce paragraphe. </p>
+    {% if is_granted('ROLE_ADMIN') %}
+        <p> Mais seuls les admins ont accès à celui-ci</p>
+    {% endif %}
+</div>
+{% endblock %}

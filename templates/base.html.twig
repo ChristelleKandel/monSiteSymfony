@@ -26,6 +26,13 @@
 
     </head>
     <body>
+        {# Ajout d'un avertissement quand l'admin est en mode impersonnel (sous le compte d'un autre user) #}
+        {% if is_granted('IS_IMPERSONATOR') %}
+        <div class="alert alert-warning">
+        <a href="{{ impersonation_exit_path(path('app_home') ) }}">Exit impersonation</a>
+        </div>
+        {% endif %}
+        
         {# commentaire twig non visible sur le code source contrairement aux commentaires html #}
         <!-- commentaire html visible dans l'inspecteur -->
         {% include "_partials/_nav.html.twig" %}

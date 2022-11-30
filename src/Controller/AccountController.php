@@ -21,12 +21,16 @@ class AccountController extends AbstractController
         return $this->render('account/show_account.html.twig');
     }
 
-    #[Route('/edit', name: 'app_account_edit', methods: ['GET', 'POST'])]
+    #[Route('/edit', name: 'app_account_edit', methods: ['GET', 'PATCH'])]
     public function edit(Request $request, EntityManagerInterface $em): Response
     {
+        //Je rajoute une sécurité pour que les personnes qui rallument mon ordi et sont connectés grâce au cookie rememberMe ne puissent pas accéder à ses fonctions
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
         // Je rajoute $user pour pré-remplir le formulaire et associéer les modifications à ce user avant de l'enregistrer
         $user = $this->getUser();
-        $form = $this->createForm(AccountFormType::class, $user);
+        $form = $this->createForm(AccountFormType::class, $user, [
+            'method' => 'PATCH'
+        ]);
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) { 
@@ -39,14 +43,17 @@ class AccountController extends AbstractController
         ]);
     }
 
-    #[Route('/password', name: 'app_account_password', methods: ['GET', 'POST', 'PUT'])]
+    #[Route('/password', name: 'app_account_password', methods: ['GET', 'PATCH'])]
     public function changePassword(Request $request, EntityManagerInterface $em, UserPasswordHasherInterface $PasswordEncoder): Response
     {
+        //Je rajoute une sécurité pour que les personnes qui rallument mon ordi et sont connectés grâce au cookie rememberMe ne puissent pas accéder à ses fonctions
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
         // Je rajoute $user pour pré-remplir le formulaire et associer les modifications à ce user avant de l'enregistrer
         $user = $this->getUser();
         // createform, hérité de AbstractController, permet de passer (un type, des data, des options). Pour mettre des options et pas de data, on met null en 2eme position, on peut ainsi créer une option de toute pièce, ici un champ par défaut à false et rajouter dans des form si nécessaire. Cette option doit être ajoutée dans notre FormeType tout en bas, dans le configureOptions
         $form = $this->createForm(ChangePasswordFormType::class, null, [
-            'current_password_is_required' => true
+            'current_password_is_required' => true,
+            'method' => 'PATCH'
         ]);
 
         $form->handleRequest($request);

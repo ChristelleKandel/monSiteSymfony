@@ -21,18 +21,37 @@ security:
                 path: app_logout
                 # where to redirect after logout
                 # target: app_any_route
+                target: app_home
+
+            remember_me:
+                secret:   '%kernel.secret%' 
+                lifetime: 604800 # 1 week in seconds
+                # by default, the feature is enabled by checking a
+                # checkbox in the login form (see below), uncomment the
+                # following line to always enable it.
+                #always_remember_me: true
 
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#the-firewall
 
             # https://symfony.com/doc/current/security/impersonating_user.html
-            # switch_user: true
+            # On décommente switch_user et on l'associe à un role (admin en général)
+            switch_user: true
 
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:
         # - { path: ^/admin, roles: ROLE_ADMIN }
-        # - { path: ^/profile, roles: ROLE_USER }
+        - { path: ^/account, roles: ROLE_USER }
+        # Si je veux que tout mon site soit protéger, à part la page de connection:
+        # - { path: ^/login, roles: PUBLIC_ACCESS }
+        # - { path: ^/, roles: ROLE_USER }
+
+    # On peut ajouter des sous-rôle sans avoir à les mettre à la main sur chaque User ex:
+    role_hierarchy:
+        # ROLE_PROF: [ROLE_DONNER_COURS, ROLE_ASSIGNER_NOTE, ROLE_DONNER_RETENUE]
+        # ROLE_ELEVE: [ROLE_SUIVRE_COURS, ROLE_EXPOSE]
+        ROLE_ADMIN: [ROLE_ALLOWED_TO_SWITCH]
 
 when@test:
     security:
