@@ -6,6 +6,8 @@
 
 <div class="text-center">
     <h1 class="m-5">Bonjour</h1>
+    {# Je rajoute une condition: si app.user existe, je veux ajouter son nom, sinon je mets le message "connectez-vous" #}
+    <h2> {{ (app.user ? app.user.fullName : 'Vous n\'êtes pas connecté') }} </h2>
     <p>
         Ceci est un exemple de projet développé avec Symfony <br>
         Il permet d'enregistrer des pins à la façon de Pinterest. <br>

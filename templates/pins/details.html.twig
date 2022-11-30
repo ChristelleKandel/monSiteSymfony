@@ -14,11 +14,11 @@
                     <small>
                         Posté <time datetime="{{ pin.createdAt|date('Y-m-d H:i:s') }}">{{ pin.createdAt|ago }}</time>
                         {# Posté il y a {{ pin.createdAt|ago }} #}
-                        par [Owner full name]
+                        par  {{ pin.user.prenom }} {{ pin.user.nom }}
                     </small>
                 </p>
-                <p class="px-3">{{ pin.description }}</p>
-                <div class="px-3 pb-3">
+                <p class="px-3 text-break">{{ pin.description }}</p>
+                <div class="p-3">
                     <a class="btn btn-light" href="{{ path('app_pins_edit', {'id': pin.id}) }}">Modifier</a>
                     <a class="btn btn-light" href="#" onclick="event.preventDefault(); confirm('êtes-vous sûr de vouloir supprimer ce pin?') && document.getElementById('js-pin-delete-form').submit();">Supprimer </a>
                     <a class="btn btn-light" href="{{ path('app_pins') }}">Retour à la liste</a>

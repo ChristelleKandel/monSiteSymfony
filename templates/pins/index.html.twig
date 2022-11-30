@@ -17,7 +17,7 @@
                             <h2 class="h5 pt-3 px-3">{{ pin.title }}</h2>
                             <p class="px-3">{{ pin.description|u.truncate(20, '...', false) }}</p>
                             <p class="px-3"> Lire la suite : <a class="text-secondary text-decoration-none" href="{{ path('app_pins_details', {'id': pin.id}) }}">{{ pin.title }}</a></p>
-                            <p class="p-3 text-muted"><small>Posté par [Owner full name]</small></p>
+                            <p class="p-3 text-muted"><small>Posté par {{ pin.user.prenom }} {{ pin.user.nom }}</small></p>
                         </article>
                     </div>
                 {% endfor %}

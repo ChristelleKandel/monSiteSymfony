@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mon compte{% endblock %}
+
+{% block body %}
+<div class="container text-center">
+    <div class="row">
+        <div class="col-md-6 mx-auto">
+            <h1>Mon compte</h1>
+            {# On récupère un avatar sur le site gravatar, grâce à la fonction créée dans User.php:
+                // On crée une fonction pour ajouter un avatar depuis le site gravatar.com
+                    public function getAvatar(?int $size = 150) 
+                    {
+                        return 'https://www.gravatar.com/avatar/' .md5(strtolower(trim($this->getEmail()))) . '/?s=' . $size;
+                    }
+            Sur le site gravatar.com il est expliqué la méthode à utiliser:
+            $grav_url = "https://www.gravatar.com/avatar/HASH";
+            $grav_url = "https://www.gravatar.com/avatar/" .md5(strtolower(trim($email))) . "?d=" . urlencode($default) . "&s=" . $size;#}
+            <img src="{{ app.user.getAvatar }}" alt="Avatar de  {{ app.user.fullName }}" class="rounded-circle shadow m-5"></img>
+            <h2> Bienvenue {{ app.user.fullName }}</h2>
+            <p> Email: {{ app.user.email }}</p>
+            <p><small>Compte créé le {{ app.user.createdAt|date('d/m/Y') }}</small></p>
+            <p><a href="{{ path('app_account_edit') }}">Modifier mon compte</a> | <a href="{{ path('app_account_password') }}">Changer mon mot de passe</a></p>
+        </div>
+    </div>
+</div>
+{% endblock %}

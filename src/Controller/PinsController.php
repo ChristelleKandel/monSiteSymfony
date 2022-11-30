@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Pin;
 use App\Form\PinType;
 use App\Repository\PinRepository;
+use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -26,7 +27,7 @@ class PinsController extends AbstractController
     }
 
     #[Route('/pins/create', name: 'app_pins_create')]
-    public function create(Request $request, EntityManagerInterface $em): Response
+    public function create(Request $request, EntityManagerInterface $em, UserRepository $userRepo): Response
     {
         $pin = new Pin;
         $form = $this->createForm(PinType::class, $pin);
@@ -37,6 +38,10 @@ class PinsController extends AbstractController
         // ;
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) { 
+            // on triche pour ajouter un user par défaut pour le moment, il faut avoir crée ce user dans la DB avant
+            //$ck = $userRepo->findOneBy(['email' => 'christelle.kandel@gmail.com']);
+            //$pin->setUser($ck);
+            $pin->setUser($this->getUser());
             $em->persist($pin);
             $em->flush();
             $this->addFlash('success', 'Pin créé avec succès!');
